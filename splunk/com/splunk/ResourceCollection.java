@@ -253,25 +253,29 @@ public class ResourceCollection<T extends Resource>
     private Args namespace(AtomEntry entry) {
         Args namespace = new Args();
 
-        // no content? return an empty namespace.
-        if (entry.content == null)
-            return namespace;
+        try {
+            // no content? return an empty namespace.
+            if (entry == null || entry.content == null)
+                return namespace;
 
-        HashMap<String, String> entityMetadata =
-                (HashMap<String, String>)entry.content.get("eai:acl");
-        
-        // If there is no ACL info, we just create an empty map
-        if (entityMetadata == null) {
-            entityMetadata = new HashMap<String, String>();
+            HashMap<String, String> entityMetadata =
+                    (HashMap<String, String>)entry.content.get("eai:acl");
+
+            // If there is no ACL info, we just create an empty map
+            if (entityMetadata == null) {
+                entityMetadata = new HashMap<String, String>();
+            }
+
+            if (entityMetadata.containsKey("owner"))
+                namespace.put("owner", entityMetadata.get("owner"));
+            if (entityMetadata.containsKey("app"))
+                namespace.put("app", entityMetadata.get("app"));
+            if (entityMetadata.containsKey("sharing"))
+                namespace.put("sharing", entityMetadata.get("sharing"));
+            return namespace;
+        } catch (Exception e) {
+            return namespace;
         }
-        
-        if (entityMetadata.containsKey("owner"))
-            namespace.put("owner", entityMetadata.get("owner"));
-        if (entityMetadata.containsKey("app"))
-            namespace.put("app", entityMetadata.get("app"));
-        if (entityMetadata.containsKey("sharing"))
-            namespace.put("sharing", entityMetadata.get("sharing"));
-        return namespace;
     }
 
     /** {@inheritDoc} */
