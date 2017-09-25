@@ -2,7 +2,7 @@
 
 declare -r scriptDirectory="$(dirname $(readlink -e $0))"
 declare -r scriptName="$(basename $0)"
-declare -r version="1.6.3"
+declare -r version="1.6.4"
 
 if [[ $# -ne 1 ]]; then
     echo 1>&2 "Usage: ${scriptName} {local|staging||production}"
@@ -14,19 +14,21 @@ local)
     declare -r repositoryId=""
     ;;
 staging)
-    declare -r url="http://stg-artifactory:8081/artifactory/devplat-staging/"
-    declare -r repositoryId="splunk-staging-artifactory"
+    declare -r url="https://nexus.j9tech.com/repository/maven-snapshots"
+    declare -r repositoryId="j9-maven-snapshots"
     ;;
 production)
-    declare -r url="https://splunk.artifactoryonline.com/splunk/ext-releases-local/"
-    declare -r repositoryId="splunk-production-artifactory"
+    declare -r url="https://nexus.j9tech.com/repository/maven-releases"
+    declare -r repositoryId="j9-maven-releases"
     ;;
 esac
 
 cd "${scriptDirectory}"
 
-mvn deploy:deploy-file -Ddescription="The Splunk SDK for Java" -Dfile=dist/splunk-${version}.jar \
-    -DgroupId=com.splunk -DartifactId=splunk -Dversion=${version}.0 -Dpackaging=jar \
+mvn deploy:deploy-file -Ddescription="The Splunk SDK for Java" \
+    -Dfile=dist/splunk-${version}.jar \
+    -DgroupId=com.j9tech -DartifactId=splunk-sdk-java -Dversion=${version}.0 \
+    -Dpackaging=jar \
     -Djavadoc=dist/splunk-${version}-javadoc.jar \
     -Dsources=dist/splunk-${version}-sources.jar \
     -DrepositoryId="${repositoryId}" \
