@@ -15,11 +15,11 @@ local)
     ;;
 staging)
     declare -r url="https://nexus.streamweaver.com/repository/maven-snapshots"
-    declare -r repositoryId="j9-maven-snapshots"
+    declare -r repositoryId="swp-nexus-maven-releases"
     ;;
 production)
     declare -r url="https://nexus.streamweaver.com/repository/maven-releases"
-    declare -r repositoryId="j9-maven-releases"
+    declare -r repositoryId="swp-nexus-maven-releases"
     ;;
 esac
 
@@ -27,7 +27,7 @@ cd "${scriptDirectory}"
 
 mvn deploy:deploy-file -Ddescription="The Splunk SDK for Java" \
     -Dfile=dist/splunk-${version}.jar \
-    -DgroupId=com.j9tech -DartifactId=splunk-sdk-java -Dversion=${version}.0 \
+    -DgroupId=com.splunk -DartifactId=splunk-sdk-java -Dversion=${version}.0 \
     -Dpackaging=jar \
     -Djavadoc=dist/splunk-${version}-javadoc.jar \
     -Dsources=dist/splunk-${version}-sources.jar \
