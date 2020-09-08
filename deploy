@@ -14,12 +14,12 @@ local)
     declare -r repositoryId=""
     ;;
 staging)
-    declare -r url="https://nexus.streamweaver.com/repository/maven-snapshots"
-    declare -r repositoryId="swp-nexus-maven-releases"
+    declare -r url="https://nexus.streamweaver.io/repository/maven-snapshots"
+    declare -r repositoryId="swp-maven-proxy-releases"
     ;;
 production)
-    declare -r url="https://nexus.streamweaver.com/repository/maven-releases"
-    declare -r repositoryId="swp-nexus-maven-releases"
+    declare -r url="https://nexus.streamweaver.io/repository/maven-releases"
+    declare -r repositoryId="swp-maven-proxy-releases"
     ;;
 esac
 
